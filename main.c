@@ -1,7 +1,7 @@
 /** main.c
  * ===========================================================
- * Name: _______________________, __ ___ 2026
- * Section: CS483 / ____
+ * Name: Jaden Liu, 7 Apr 2026
+ * Section: CS483 / M3
  * Project: PEX3 - Page Replacement Simulator
  * Purpose: Reads a BYU binary memory trace file and simulates
  *          LRU page replacement to measure fault rates across
@@ -73,6 +73,15 @@ int main(int argc, char **argv) {
     //       available.  Use calloc so all entries start at zero.
 
     // Process each memory access from the trace file
+
+    PageQueue *pq =pqInit(maxFrames);
+    if(pq==NULL){
+        return -1;
+    }
+
+    //fault long
+    long *faults=(unsigned long*)calloc((size_t)(maxFrames+1),sizeof(long));
+
     while (!feof(ifp)) {
         fread(&traceRecord, sizeof(p2AddrTr), 1, ifp);
 
@@ -93,6 +102,18 @@ int main(int argc, char **argv) {
         //                    (fault for any allocation with fewer than d+1 frames)
         //
         //       Update faults[] accordingly.
+
+        long depth = pqAccess(pq,pageNum);
+        if(depth==-1){
+            for(int f=1; f<=maxFrames; f++){
+                faults[f]=faults[f]+1;
+            }
+        }   
+        else{
+            for(int f=1; f<=maxFrames; f++){
+                faults[f]=faults[f]+1;
+            }
+        }        
 
     }
 
