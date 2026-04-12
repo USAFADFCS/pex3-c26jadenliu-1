@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
             for(int f=1; f<=maxFrames; f++){
                 faults[f]=faults[f]+1;
             }
-        }   
+        }
         else{
             for(int f=1; f<=maxFrames; f++){
                 faults[f]=faults[f]+1;
@@ -127,8 +127,16 @@ int main(int argc, char **argv) {
     //       printf("%d,%lu,%f\n", frameCount, faults[frameCount],
     //              (double)faults[frameCount] / (double)numAccesses);
 
+    for(int frame=1; frame<=maxFrames; frame++){
+        printf("%d,%lu,%f\n", frame, faults[frame],
+                (double)faults[frame] / (double)numAccesses);
+    }
     // TODO: Free your PageQueue and the faults[] array,
     //       then close the file.
 
+    pqfree(pq);
+    //need to pqfree
+    free(faults);
+    fclose(ifp);
     return 0;
 }
