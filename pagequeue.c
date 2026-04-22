@@ -101,6 +101,8 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
     else{
         pq->head=newNode;
     }
+    pq->tail=newNode;
+    pq->size++;
 
     //check max
     if(pq->size > pq->maxSize){
