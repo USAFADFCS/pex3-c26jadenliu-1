@@ -128,7 +128,15 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
 void pqFree(PageQueue *pq) {
     // TODO: Walk from head to tail, free each node, then free
     //       the PageQueue struct itself.
-    
+    if(pq==NULL){
+        exit(-1);
+    }
+    PqNode *current =pq->head;
+    while(current!=NULL){
+        PqNode*next = current->next;
+        free(current);
+        current=next;
+    }
 
 }
 

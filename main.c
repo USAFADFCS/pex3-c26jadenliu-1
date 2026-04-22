@@ -80,10 +80,9 @@ int main(int argc, char **argv) {
     }
 
     //fault long
-    long *faults=(unsigned long*)calloc((size_t)(maxFrames+1),sizeof(long));
+    unsigned long *faults=(unsigned long*)calloc((size_t)(maxFrames+1),sizeof(unsigned long));
 
-    while (!feof(ifp)) {
-        fread(&traceRecord, sizeof(p2AddrTr), 1, ifp);
+    while (fread(&traceRecord, sizeof(p2AddrTr), 1, ifp)==1){
 
         // Extract page number by shifting off the offset bits
         unsigned long pageNum = traceRecord.addr >> offsetBits;
@@ -110,7 +109,7 @@ int main(int argc, char **argv) {
             }
         }
         else{
-            for(int f=1; f<=maxFrames; f++){
+            for(int f=1; f<=depth; f++){
                 faults[f]=faults[f]+1;
             }
         }        
@@ -121,7 +120,7 @@ int main(int argc, char **argv) {
 
     // Output CSV results to stdout (redirect with > to create a .csv file)
     printf("Total Accesses:,%lu\n", numAccesses);
-    printf("Frames,Missees,Miss Rate\n");
+    printf("Frames,Misses,Miss Rate\n");
 
     // TODO: Loop from frame count 1 to maxFrames and print each row:
     //       printf("%d,%lu,%f\n", frameCount, faults[frameCount],
@@ -134,8 +133,7 @@ int main(int argc, char **argv) {
     // TODO: Free your PageQueue and the faults[] array,
     //       then close the file.
 
-    pqfree(pq);
-    //need to pqfree
+    pqFree(pq);
     free(faults);
     fclose(ifp);
     return 0;
