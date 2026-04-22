@@ -8,7 +8,8 @@
  *          varying frame allocations.
  * Documentation: Used provided slides and guidance on Canvas. LLM resource usage for initial guidance/approach
  * as well as overcoming specific problems such as failure to populate csv properly. Further use
- * docuemnted through log emailed to instructor.
+ * docuemnted through log emailed to instructor. ChatGPT in same chat log verified the csv output matched
+ * project description and expectations.
  * =========================================================== */
 #include <stdio.h>
 #include <stdlib.h>
